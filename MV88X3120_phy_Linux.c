@@ -87,7 +87,7 @@ int MV88X3120_set_settings(struct net_device *netdev, struct ethtool_cmd *ecmd)
 
 //-------------------------------------------------------------------------------------------------
 #ifdef ETHTOOL_GLINKSETTINGS
-#define MV88X3120_ALL_SPEEDS	(__ETHTOOL_LINK_MODE_LAST+1)
+#define MV88X3120_ALL_SPEEDS	(0xFFFFFFFF)
 
 static void MV88X3120_set_link_mode(unsigned long *bits, u32 speed)
 {

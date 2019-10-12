@@ -29,7 +29,7 @@ Special notes for Marvell PHYs:
 
 General Notes:
 ==============
-      - Supported kernels: 2.6.32 - 4.x
+      - Supported kernels: 2.6.32 - 5.x
 
       - make install should be run by a privileged user after running make:
 	sudo make install

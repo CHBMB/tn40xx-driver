@@ -23,7 +23,11 @@ VID /DID /SVID/SDID	Interface			Print Name
 1fc9/4027/1baa/3310	NBASE-T Pele MV88X3310	"QNAP LAN-10G1T-THT 10Gbase-T/NBASE-T Ethernet Adapter"
 1fc9/4527/1fc9/3015	5GBASE-T Pele MV88E2010	"TN9710Q 5GBase-T/NBASE-T Ethernet Adapter"
 
-- Kernel versions supported: 2.6.32-4.20
+- Kernel versions supported: 2.6.32-5.1
+
+Version 0.3.6.17.2 2019/05/12
+=============================
+- Fix compilation error under kernel 5.1.1
 
 Version 0.3.6.17.1 2019/01/09
 =============================

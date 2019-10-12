@@ -52,7 +52,7 @@
 #define __initdata
 #endif
 
-#define BDX_DRV_VERSION   	"0.3.6.17.1"
+#define BDX_DRV_VERSION   	"0.3.6.17.2"
 #define DRIVER_AUTHOR     	"Tehuti networks"
 #define BDX_DRV_DESC      	"Tehuti Network Driver"
 #define BDX_NIC_NAME      	"tn40xx"
