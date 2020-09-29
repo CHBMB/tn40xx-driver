@@ -3608,7 +3608,12 @@ static inline void bdx_setTxdb(struct txdb *db, dma_addr_t dmaAddr, int len)
 
 static inline int bdx_tx_map_skb(struct bdx_priv *priv, struct sk_buff *skb, struct txd_desc *txdd, int* nr_frags, unsigned int *pkt_len)
 {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
 	struct skb_frag_struct *frag;
+#else
+	skb_frag_t *frag;
+#endif
+
 	dma_addr_t	dmaAddr;
     int 		i, len;
     struct txdb *db 		= &priv->txdb;
@@ -3645,10 +3650,19 @@ static inline int bdx_tx_map_skb(struct bdx_priv *priv, struct sk_buff *skb, str
 	#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 2,0)
 			dmaAddr = pci_map_page(priv->pdev, frag->page,frag->page_offset, frag->size, PCI_DMA_TODEVICE);
 	#else
+		#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
 			dmaAddr = skb_frag_dma_map(&priv->pdev->dev, frag, 0, frag->size, PCI_DMA_TODEVICE);
+		#else
+			dmaAddr = skb_frag_dma_map(&priv->pdev->dev, frag, 0, skb_frag_size(frag), PCI_DMA_TODEVICE);
+		#endif
+
 	#endif
 			bdx_tx_db_inc_wptr(db);
-			bdx_setTxdb(db, dmaAddr, frag->size);
+			#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
+				bdx_setTxdb(db, dmaAddr, frag->size);
+			#else
+				bdx_setTxdb(db, dmaAddr, skb_frag_size(frag));
+			#endif
 			bdx_setPbl(pbl++, db->wptr->addr.dma, db->wptr->len);
 			*pkt_len += db->wptr->len;
 		}
